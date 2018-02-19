@@ -1,5 +1,6 @@
 import turtle
-
+from Point import Point
+    
 def makeSquare(board):
     
     for i in range(4):
@@ -35,16 +36,24 @@ def create_board(board):
 ####################
 ##every grid is 64 * 64
 
+if __name__ == "__main__":
+    wn = turtle.Screen()    
+    board = turtle.Turtle()
+    create_board(board)
 
-                   
-wn = turtle.Screen()    
-board = turtle.Turtle()
-create_board(board)
+    knight = turtle.Turtle()
+    knight.shape("circle")
 
-knight = turtle.Turtle()
-knight.shape("turtle")
+    p = Point(75,75)
+    p2 = Point(150, 200)
+    print(p.x, p.y)
+    #knight.penup()
+    knight.goto(p.x,p.y)
+    knight.stamp()
+    knight.goto(p2.x,p2.y)
+    #knight.stamp()
+    knight.left(3600)
+    
 
 
-
-
-wn.exitonclick()
+    wn.exitonclick()
