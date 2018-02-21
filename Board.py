@@ -1,8 +1,8 @@
 import turtle
 from Point import Point
-    
+
 def makeSquare(board):
-    
+
     for i in range(4):
         board.forward(256)
         board.left(90)
@@ -32,12 +32,11 @@ def create_board(board):
     board.forward(512)
     board.hideturtle()
 
-
 ####################
 ##every grid is 64 * 64
 
 if __name__ == "__main__":
-    wn = turtle.Screen()    
+    wn = turtle.Screen()
     board = turtle.Turtle()
     create_board(board)
 
@@ -53,7 +52,7 @@ if __name__ == "__main__":
     knight.goto(p2.x,p2.y)
     #knight.stamp()
     knight.left(3600)
-    
+
 
 
     wn.exitonclick()
