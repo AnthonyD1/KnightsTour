@@ -74,8 +74,6 @@ if __name__ == "__main__":
             knight.goto(p.x,p.y)
             knight.stamp()
 
-    knight.left(3600)
-
 
 
 

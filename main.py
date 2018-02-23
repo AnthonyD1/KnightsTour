@@ -11,15 +11,15 @@ if __name__ == "__main__":
 
     knight = turtle.Turtle()
     knight.shape("circle")
-    p = Point(75,75)
-    p2 = Point(150, 200)
-    print(p.x, p.y)
+    #p = Point(75,75)
+    #p2 = Point(150, 200)
+    #print(p.x, p.y)
     #knight.penup()
-    knight.goto(p.x,p.y)
-    knight.stamp()
-    knight.goto(p2.x,p2.y)
+    #knight.goto(p.x,p.y)
     #knight.stamp()
-    wn.exitonclick()
+    #knight.goto(p2.x,p2.y)
+    #knight.stamp()
+
 
     matrix = [[0 for i in xrange(8)] for i in xrange(8)]
     cx = -224
@@ -32,4 +32,12 @@ if __name__ == "__main__":
         cx = -224
         cy = cy - 64
 
-    print(matrix[7][0].x)
+    for i in range(8):
+        for j in range (8):
+            p = matrix[i][j]
+            print(p)
+            #knight.penup()
+            knight.goto(p.x,p.y)
+            knight.stamp()
+
+    wn.exitonclick()
