@@ -32,4 +32,4 @@ if __name__ == "__main__":
         cx = -224
         cy = cy - 64
 
-    print(matrix[7][0].getXCoord())
+    print(matrix[7][0].x)
