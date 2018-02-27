@@ -1,80 +1,100 @@
 import turtle
 from Point import Point
 
-def makeSquare(board):
 
-    for i in range(4):
-        board.forward(256)
-        board.left(90)
+class Board:
 
-def L_shape(board):
-    board.forward(512)
-    board.right(90)
-    board.forward(64)
-    board.right(90)
-    board.forward(512)
-    board.left(90)
-    board.forward(64)
-    board.left(90)
+    def tour(self,x,y):
+    
+        # check for out of bounds
+        if (x > self.row - 1 or x < 0 or y > self.col - 1 or y < 0):
+            return
+        # check if all cells been visited
+        if (self.count == self.boardSize):
+            return
+        currentPoint = self.matrix[x,y]
+        # has the point been visited?
+        if (currentPoint.hasBeenVisited()):
+            return
 
-def create_board(board):
-    board.speed(0)
-    board.penup()
-    board.goto(-256, 256)
-    board.pendown()
-    for i in range(4):
-        L_shape(board)
-    board.forward(512)
-    board.forward(-512)
-    board.left(90)
-    for i in range(4):
-        L_shape(board)
-    board.forward(512)
-    board.hideturtle()
+        # otherwise this point has not been visited, toggle visited
+        currentPoint.toggleVisited()
+        self.pointList.append(currentPoint)
+        self.count += 1
+        #print(self.count)
+        #print("added")
+        #k.goto(self.matrix[x][y].x, self.matrix[x][y].y)
+        #k.stamp()
 
-####################
-##every grid is 64 * 64
+        #recursively look at adjacent knight moves
+        self.tour(x + 1, y + 2)
+        self.tour(x + 2, y + 1)
+        self.tour(x + 2, y - 1)
+        self.tour(x + 1, y - 2)
+        self.tour(x - 1, y - 2)
+        self.tour(x - 2, y - 1)
+        self.tour(x - 2, y + 1)
+        self.tour(x - 1, y + 2)
 
-if __name__ == "__main__":
-    wn = turtle.Screen()
-    wn.screensize(512, 512)
-    print(wn.screensize())
+        #self.tour(x + 2, y + 1)
+        #self.tour(x + 2, y - 1)
+        #self.tour(x + 1, y + 2)
+        #self.tour(x + 1, y - 2)
+        #self.tour(x - 1, y + 2)
+        #self.tour(x - 1, y - 2)
+        #self.tour(x - 2, y + 1)
+        #self.tour(x - 2, y - 1)
+        
+        # this point didn't have a path so remove it
+        if (self.count < self.boardSize):
+            #print("deleted")
+            self.count -= 1
+            self.pointList.pop()
+            currentPoint.toggleVisited()
 
-    board = turtle.Turtle()
-    create_board(board)
+    # Print out the points of the tour
+    def printTourPoints(self):
+        print(len(self.pointList))
+        for point in self.pointList:
+            print(point)
 
-    knight = turtle.Turtle()
-    knight.shape("circle")
-
-    #p = Point(75,75)
-    #p2 = Point(256, -256)
-    #print(p.x, p.y)
-    #knight.penup()
-    #knight.goto(p.x,p.y)
-    #knight.stamp()
-    #knight.goto(p2.x,p2.y)
-    #knight.stamp()
-
-    #create and initialize a matrix of points
-    Matrix = {}
-    cellSize = 512 // 8
-    midpoint = cellSize // 2
-    for i in range (8):
-        for j in range (8):
-            # calculate x and y coordinates for points
-            x = ((cellSize * (i + 1)) - midpoint) - 256
-            y = ((cellSize * (j + 1)) - midpoint) - 256
-            Matrix[i,j] = Point(x,y)
-
-    for i in range(8):
-        for j in range (8):
-            p = Matrix[i,j]
-            print(p)
-            #knight.penup()
-            knight.goto(p.x,p.y)
+    # Draw the tour to screen
+    def drawTour(self, knight,x,y):
+        knight.speed(3)
+        
+        knight.penup()
+        knight.goto(-224 + 64*x, 224 - 64*y)
+        knight.stamp()
+        knight.pendown()
+        
+        for i in range(1, len(self.pointList)):
+            knight.goto(self.pointList[i].x, self.pointList[i].y)
             knight.stamp()
 
+    def __init__(self, row, col):
+        self.boardSize = row * col
+        self.row = row
+        self.col = col
+        self.pointList = []
+        self.count = 0
+        self.matrix = {}
+        cx = -224
+        cy = 224
+        for i in range(row):
+            for j in range(col):
+                cp = Point(cx, cy)
+                self.matrix[i,j] = cp
+                cx = cx + 64
+            cx = -224
+            cy = cy - 64
 
+    def printBoard(self, knight):
+        for i in range(self.row):
+            for j in range (self.col):
+                p = self.matrix[i][j]
+                print(p)
+                #knight.penup()
+                knight.goto(p.x,p.y)
+                knight.stamp()
 
-
-    wn.exitonclick()
+  
