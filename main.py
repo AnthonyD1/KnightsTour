@@ -1,6 +1,7 @@
 import turtle
 from DrawBoard import create_board
 from Board import Board
+import DFS
         
 if __name__ == "__main__":
     chessBoard = Board(8,8)
@@ -16,8 +17,8 @@ if __name__ == "__main__":
 
     #chessBoard.printBoard(knight)
 
-    chessBoard.tour(0,0)
-    chessBoard.printTourPoints()
-    chessBoard.drawTour(knight,0,0)
+    DFS.tour(chessBoard,0,0)
+    DFS.printTourPoints(chessBoard)
+    DFS.drawTour(chessBoard,knight,0,0)
     
     wn.exitonclick()
