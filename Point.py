@@ -4,6 +4,9 @@ class Point:
         self.x = x
         self.y = y
         self.visited = False
+        self.accessibility = 0
+        self.adjacentPoints = []
+ 
 
     # Will determine how points are printed
     def __str__(self):
